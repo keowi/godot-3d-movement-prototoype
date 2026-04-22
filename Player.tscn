@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://do7yxvc2drqpj"]
+
+[ext_resource type="Script" uid="uid://b8de0afcetup2" path="res://player.gd" id="1_kne1u"]
+[ext_resource type="PackedScene" uid="uid://bthg3ii62v26y" path="res://assets/character-male-a.glb" id="1_kpjcp"]
+[ext_resource type="Texture2D" uid="uid://b87e2q51opbqw" path="res://assets/colormap.png" id="2_kne1u"]
+[ext_resource type="Script" uid="uid://bwn7l0dc44gks" path="res://camera_controller.gd" id="4_e80uo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kpjcp"]
+albedo_texture = ExtResource("2_kne1u")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kne1u"]
+albedo_texture = ExtResource("2_kne1u")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e80uo"]
+radius = 0.310142
+height = 0.978642
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_kne1u")
+
+[node name="character-male-a2" parent="." instance=ExtResource("1_kpjcp")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="character-male-a2/character-male-a" index="0"]
+bones/1/position = Vector3(0.0791, 0.221, -0.0867)
+bones/1/rotation = Quaternion(0.608761, 0, 0, 0.793353)
+bones/2/position = Vector3(-0.0761, 0.22, -0.009)
+bones/2/rotation = Quaternion(-0.382683, 0, 0, 0.92388)
+bones/4/rotation = Quaternion(0, 0, 0.130526, 0.991445)
+bones/5/rotation = Quaternion(0, 0, -0.130526, 0.991445)
+
+[node name="body-mesh" parent="character-male-a2/character-male-a/Skeleton3D" index="0"]
+material_override = SubResource("StandardMaterial3D_kpjcp")
+
+[node name="head-mesh" parent="character-male-a2/character-male-a/Skeleton3D" index="1"]
+material_override = SubResource("StandardMaterial3D_kne1u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0.000994682, 0.299092, -0.0134031)
+shape = SubResource("CapsuleShape3D_e80uo")
+
+[node name="Camera_Controller" type="Node3D" parent="."]
+top_level = true
+script = ExtResource("4_e80uo")
+
+[node name="Camera_Target" type="Node3D" parent="Camera_Controller"]
+transform = Transform3D(1, 0, 0, 0, 0.98595816, 0.16699244, 0, -0.16699244, 0.98595816, 0.34002602, 0.9662309, 1.3205566)
+
+[node name="Camera3D" type="Camera3D" parent="Camera_Controller/Camera_Target"]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, -1.4901161e-08, 0, 1.4901161e-08, 1.0000001, 0, 0, 0)
+
+[editable path="character-male-a2"]

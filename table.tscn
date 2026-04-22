@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://bw7x60whw7mq1"]
+
+[ext_resource type="Texture2D" uid="uid://vm0x7cklqxah" path="res://Textures/table_low_BaseColor.png" id="1_v5i0k"]
+[ext_resource type="ArrayMesh" uid="uid://b4a22x5fqo85k" path="res://meshes/uploads_files_3839681_WoodenStylizedTable.obj" id="2_kl0hw"]
+[ext_resource type="ArrayMesh" uid="uid://bd4dqwlbdn45e" path="res://Chair_01.obj" id="3_kl0hw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vjl2i"]
+albedo_texture = ExtResource("1_v5i0k")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_67vji"]
+points = PackedVector3Array(-7.534934, 8.359683, -7.390324, -6.5500436, -0.062238, -6.325473, -7.534934, 8.359683, 7.3902726, -7.534934, 8.942299, -7.390324, 7.415498, 8.359683, -7.390324, -6.5500436, -0.062238, 6.4209104, 6.496462, -0.062238, -6.325473, -7.534934, 8.941418, 7.3902726, 7.415498, 8.359683, 7.3902726, 7.415498, 8.942299, -7.390324, 6.496462, -0.062238, 6.4209104, 7.415498, 8.941418, 7.3902726)
+
+[node name="table" type="StaticBody3D"]
+
+[node name="UploadsFiles3839681WoodenStylizedTable" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_vjl2i")
+mesh = ExtResource("2_kl0hw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_67vji")
+
+[node name="Chair01" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.5896957e-09, 0, -0.105, 0, 0.105, 0, 0.105, 0, -4.5896957e-09, 0, 0, -1)
+mesh = ExtResource("3_kl0hw")

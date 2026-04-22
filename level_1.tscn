@@ -1,0 +1,107 @@
+[gd_scene load_steps=19 format=3 uid="uid://dfrqnvuuu7mht"]
+
+[ext_resource type="Texture2D" uid="uid://iqqluqris508" path="res://Textures/texturelaminate/laminate_floor_02_diff_1k.png" id="1_ihfcg"]
+[ext_resource type="Texture2D" uid="uid://bwuwj62j3cy1f" path="res://Textures/texturelaminate/laminate_floor_02_rough_1k.png" id="2_rka8t"]
+[ext_resource type="Texture2D" uid="uid://eaohuk2ggk6n" path="res://Textures/texturelaminate/laminate_floor_02_nor_gl_1k.png" id="3_5hph3"]
+[ext_resource type="PackedScene" uid="uid://do7yxvc2drqpj" path="res://Player.tscn" id="4_ihfcg"]
+[ext_resource type="MeshLibrary" uid="uid://c8gu21nqgb6d4" path="res://meshes/meshlibrary/meshlib.tres" id="5_rka8t"]
+[ext_resource type="PackedScene" uid="uid://cvlgjarwlew2v" path="res://characters/character1.tscn" id="6_5hph3"]
+[ext_resource type="PackedScene" uid="uid://bw7x60whw7mq1" path="res://table.tscn" id="7_j7kpp"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ilcil"]
+size = Vector3(100, 0.5, 100)
+
+[sub_resource type="Skin" id="Skin_rka8t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5hph3"]
+albedo_texture = ExtResource("1_ihfcg")
+roughness_texture = ExtResource("3_5hph3")
+normal_enabled = true
+normal_scale = -16.0
+normal_texture = ExtResource("2_rka8t")
+uv1_scale = Vector3(-15.505, -15.505, -15.505)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hbghi"]
+size = Vector3(100, 0.5, 100)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ihfcg"]
+sky_top_color = Color(0.8778924, 0.67800784, 0.73287815, 1)
+sky_horizon_color = Color(9.529888e-06, 0.62478864, 0.84776556, 1)
+sky_curve = 0.069977164
+ground_bottom_color = Color(0.043137256, 0.16862746, 0.13333334, 1)
+ground_horizon_color = Color(0.84285253, 0.7673885, 0.7706248, 1)
+ground_curve = 0.050982393
+sun_angle_max = 8.0
+sun_curve = 0.7647352
+
+[sub_resource type="Sky" id="Sky_rka8t"]
+sky_material = SubResource("ProceduralSkyMaterial_ihfcg")
+
+[sub_resource type="Environment" id="Environment_rka8t"]
+background_mode = 2
+background_color = Color(0.585361, 0.79354, 0.999136, 1)
+sky = SubResource("Sky_rka8t")
+sky_custom_fov = 144.0
+sky_rotation = Vector3(0.0959931, 0, 0)
+ambient_light_source = 2
+ambient_light_color = Color(0.7162962, 0.7162962, 0.7162962, 1)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_5hph3"]
+
+[sub_resource type="Compositor" id="Compositor_j7kpp"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ihfcg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rka8t"]
+
+[node name="Level1" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.21604, -0.963032, -0.160919, 0.663982, -0.265743, 0.698934, -0.71586, 0.0441507, 0.696847, -0.693289, 4.97782, 9.61596)
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.008, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_ilcil")
+skin = SubResource("Skin_rka8t")
+surface_material_override/0 = SubResource("StandardMaterial3D_5hph3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_hbghi")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rka8t")
+camera_attributes = SubResource("CameraAttributesPractical_5hph3")
+compositor = SubResource("Compositor_j7kpp")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(0.795981, -0.605322, 0, 0.605322, 0.795981, 0, 0, 0, 1, 0, 2.79236, -6.2497)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_ihfcg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_rka8t")
+
+[node name="Player" parent="." instance=ExtResource("4_ihfcg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.324944, 1.5323682, 1.00375)
+
+[node name="GridMap" type="GridMap" parent="."]
+transform = Transform3D(0.54, 0, 0, 0, 0.54, 0, 0, 0, 0.54, 0, 0, 0)
+mesh_library = ExtResource("5_rka8t")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(65519, 65516, 21, 65520, 65516, 21, 65521, 65516, 21, 65522, 65516, 21, 65523, 65516, 21, 65524, 65516, 21, 65525, 65516, 21, 65526, 65516, 21, 65527, 65516, 21, 65528, 65516, 21, 65529, 65516, 21, 65530, 65516, 21, 65531, 65516, 21, 65532, 65516, 21, 65533, 65516, 21, 65534, 65516, 21, 65535, 65516, 21, 0, 65516, 21, 1, 65516, 21, 2, 65516, 21, 3, 65516, 21, 4, 65516, 21, 5, 65516, 21, 6, 65516, 21, 7, 65516, 21, 8, 65516, 21, 9, 65516, 21, 10, 65516, 21, 11, 65516, 21, 12, 65516, 21, 13, 65516, 21, 14, 65516, 21, 15, 65516, 21, 16, 65516, 21, 17, 65516, 21, 18, 65516, 21, 19, 65516, 21, 20, 65516, 21, 21, 65516, 21, 22, 65516, 21, 23, 65516, 21, 24, 65516, 21, 25, 65516, 21, 26, 65516, 21, 27, 65516, 21, 28, 65516, 21, 29, 65516, 21, 30, 65516, 21, 31, 65516, 21, 65517, 65516, 1441813, 65517, 65517, 1441813, 65517, 65518, 1441813, 65517, 65519, 1441813, 65517, 65520, 1441813, 65517, 65521, 1441813, 65517, 65522, 1441813, 65517, 65523, 1441813, 65517, 65524, 1441813, 65517, 65525, 1441813, 65517, 65526, 1441813, 65517, 65527, 1441813, 65517, 65528, 1441813, 65517, 65529, 1441813, 65517, 65530, 1441813, 65517, 65531, 1441813, 65517, 65532, 1441813, 65517, 65533, 1441813, 65517, 65534, 1441813, 65517, 65535, 1441813, 65517, 0, 1441813, 65517, 1, 1441813, 65517, 2, 1441813, 65517, 3, 1441813, 65517, 4, 1441813, 65517, 5, 1441813, 65517, 6, 1441813)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Character1" parent="." instance=ExtResource("6_5hph3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1230054, 0.48368096, -1.2310457)
+
+[node name="table" parent="." instance=ExtResource("7_j7kpp")]
+transform = Transform3D(0.58, 0, 0, 0, 0.58, 0, 0, 0, 0.58, -1.8869458, 0.25, -1.3734772)
+
+[node name="table" parent="table" instance=ExtResource("7_j7kpp")]
+transform = Transform3D(1.0000004, 0, 0, 0, 1.0000004, 0, 0, 0, 1.0000004, -6.515628, 0.24999997, 0.06279993)
